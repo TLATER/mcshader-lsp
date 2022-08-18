@@ -86,7 +86,7 @@ impl<'a, T: opengl::ShaderValidator + ?Sized> DiagnosticsParser<'a, T> {
                     let graph_node = source_mapper.get_node(source_num);
                     graph.get_node(graph_node).to_str().unwrap().to_string()
                 }
-                None => uri.to_str().unwrap().to_string(),
+                None => uri.to_string_lossy().into_owned(),
             };
 
             let diagnostic = Diagnostic {
