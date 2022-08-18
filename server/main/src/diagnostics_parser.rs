@@ -30,7 +30,7 @@ impl<'a, T: opengl::ShaderValidator + ?Sized> DiagnosticsParser<'a, T> {
     fn get_line_regex(&self) -> &Regex {
         self.line_regex.get_or_init(|| match self.vendor_querier.vendor().as_str() {
             "NVIDIA Corporation" => {
-                Regex::new(r#"^(?P<filepath>\d+)\((?P<linenum>\d+)\) : (?P<severity>error|warning) [A-C]\d+: (?P<output>.+)"#).unwrap()
+                Regex::new(r#"^(?P<filepath>\d+)?\((?P<linenum>\d+)\) : (?P<severity>error|warning) [A-C]\d+: (?P<output>.+)"#).unwrap()
             }
             _ => Regex::new(r#"^(?P<severity>ERROR|WARNING): (?P<filepath>[^?<>*|"\n]+):(?P<linenum>\d+): (?:'.*' :|[a-z]+\(#\d+\)) +(?P<output>.+)$"#)
                 .unwrap(),
